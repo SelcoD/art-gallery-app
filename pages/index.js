@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import ArtPieces from "@/components/ArtPieces";
 
 const URL = "https://example-apis.vercel.app/api/art";
 
@@ -26,34 +27,6 @@ export default function HomePage() {
     <div>
       <h1>Art Gallery App</h1>
       <ArtPieces pieces={data} />
-    </div>
-  );
-}
-
-function ArtPieces({ pieces }) {
-  return (
-    <div>
-      <ul>
-        {pieces.map((piece) => (
-          <li key={piece.slug}>
-            <ArtPiecePreview
-              artist={piece.artist}
-              title={piece.name}
-              image={piece.imageSource}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function ArtPiecePreview({ image, title, artist }) {
-  return (
-    <div>
-      <img src={image} alt={title} />
-      <h3>{title}</h3>
-      <p>{artist}</p>
     </div>
   );
 }
