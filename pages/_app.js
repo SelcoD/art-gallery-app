@@ -18,6 +18,7 @@ const fetcher = async (url) => {
 
 export default function App({ Component, pageProps }) {
   const { data, error, isLoading } = useSWR(URL, fetcher);
+  const [artPiecesInfo, setArtPiecesInfo] = useState([]);
 
   if (error) {
     return <div>failed to load</div>;
@@ -25,8 +26,6 @@ export default function App({ Component, pageProps }) {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
-  const [artPiecesInfo, setArtPiecesInfo] = useState([]);
 
   return (
     <>
