@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import GlobalStyle from "../styles";
 import useSWR from "swr";
+import { useState } from "react";
 
 const URL = "https://example-apis.vercel.app/api/art";
 
@@ -24,6 +25,8 @@ export default function App({ Component, pageProps }) {
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
+  const [artPiecesInfo, setArtPiecesInfo] = useState([]);
 
   return (
     <>
