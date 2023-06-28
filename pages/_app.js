@@ -20,6 +20,21 @@ export default function App({ Component, pageProps }) {
   const { data, error, isLoading } = useSWR(URL, fetcher);
   const [artPiecesInfo, setArtPiecesInfo] = useState([]);
 
+  function handleToggleFavourite(slug) {
+    setArtPiecesInfo((artPiecesInfo) => {
+      const info = artPiecesInfo.find((info) => info.slug === slug);
+
+      if (info) {
+        return artPiecesInfo.map((artPieceInfo) =>
+          artPieceInfo.slug === slug
+            ? { ...artPieceInfo, isFavourite: !artPieceInfo.isFavourite }
+            : artPieceInfo
+        );
+      }
+      return [...artPiecesInfo, { slug, isFavourite: true }];
+    });
+  }
+
   if (error) {
     return <div>failed to load</div>;
   }
@@ -30,7 +45,12 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Component {...pageProps} pieces={data} />
+      <Component
+        onToggleFavourite={handleToggleFavourite}
+        {...pageProps}
+        pieces={data}
+        artPiecesInfo={artPiecesInfo}
+      />
       <Layout />
     </>
   );
